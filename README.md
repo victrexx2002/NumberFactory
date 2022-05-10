@@ -14,11 +14,17 @@ const o = new NumberFactory("676,38.353");
 some of the expected output
 
 o.words            // sixty seven thousand six hundred and thirty eight point three five three
+
 o.integerString    // 67638
+
 o.decimalString    // 353
+
 o.formatedString   // 67,638.353
+
 o.integerPrecision // 5
+
 o.decimalPrecision // 3
+
 o.precision        // 8
 
 
