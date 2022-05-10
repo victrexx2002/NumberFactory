@@ -1,15 +1,44 @@
-numberToWords
+NumberFactory
 =============
 
-A sample script for Chinedu
+Starting out as a small javascript to convert a string representation of a number into words,
+we are evolving into a general purpose utility that can pull some uncommon properties from numbers
 
-The script uses ES6, still trying to fiure out what that means.
-But so far it means we cannot just run the html file in a broswer by clicking on it or opening it from the 
-chrome file menu.
-We have to actually run it from a web server.
+It creates a javascript object that has certain methods that operate on the number.
 
-I think you can use something called simple server in vscode.
 
+to use, instantiate a new object like so
+
+const o = new NumberFactory("676,38.353");
+
+some of the expected output
+
+o.words            // sixty seven thousand six hundred and thirty eight point three five three
+o.integerString    // 67638
+o.decimalString    // 353
+o.formatedString   // 67,638.353
+o.integerPrecision // 5
+o.decimalPrecision // 3
+o.precision        // 8
+
+
+vitrexx2002, consider adding more functionality
+ 
+for example
+
+o.isEven --> return true if the number is even, otherwise false
+
+o.hex  --> convert the number to hexadecimal output
+
+o.isPrime -> check if the number is a prime number
+
+
+Ammend the html file to show off the functions of your script
+
+
+I think you can use something called 'live server' in vscode.
+
+or
 but i just openied a command prompt in the folder that conatins index.html and ran
 
 python3 -m http-server 8001
