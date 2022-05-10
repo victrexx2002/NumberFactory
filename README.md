@@ -13,8 +13,9 @@ const o = new NumberFactory("676,38.353");
 
 some of the expected output
 
-o.words
-sixty seven thousand six hundred and thirty eight point three five three
+| property        | output                                                                   |
+| --------------- | ------------------------------------------------------------------------ |
+| o.words         | sixty seven thousand six hundred and thirty eight point three five three |
 
 o.integerString
 67638
