@@ -1,22 +1,19 @@
-.resultHeader:nth-child(1) {
-  text-align: right;
+.resultHeader:nth-child(0) {
+  text-align: left;
   padding: 0 15px;
 }
+.resultHeader:nth-child(1) {
+  text-align: left;
+  padding: 0 15px 0 0;
+}
 .resultHeader:nth-child(2) {
-  text-align: right;
-  padding: 0 15px 0 0;
-}
-.resultHeader:nth-child(3) {
   text-align: left;
 }
-.resultNumber {
-  text-align: right;
-  padding: 0 15px 0 0;
-}
-.resultSn {
-  text-align: right;
-  padding: 0 15px 0 0;
-}
-.resultWords {
+.resultCol1 {
   text-align: left;
+  padding: 0 15px 0 0;
+}
+.resultCol2 {
+  text-align: left;
+  padding: 0 15px 0 0;
 }

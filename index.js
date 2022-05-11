@@ -8,7 +8,7 @@ const createResultTable = () => {
   // Create the table itself
   let resultTable = document.createElement("table");
   resultTable.className = "resultTable";
-  let tableHeaders = ["readable", "scientific", "number in words"];
+  let tableHeaders = ["property", "result"];
 
   // Create the table header group element
   let resultTableHead = document.createElement("thead");
@@ -43,30 +43,37 @@ const createResultTable = () => {
   resultDiv.append(resultTable);
 };
 
-const appendResult = (number, sn, words) => {
-  const resultTable = document.querySelector(".resultTable");
-  let resultTableBodyRow = document.createElement("tr"); // Create the current table row
-  resultTableBodyRow.className = "resultTableBodyRow";
-  let resultNumber = document.createElement("td");
-  resultNumber.className = "resultNumber";
-  resultNumber.innerText = number;
-  let resultSn = document.createElement("td");
-  resultSn.className = "resultSn";
-  resultSn.innerHTML = sn;
-  let resultWords = document.createElement("td");
-  resultWords.className = "resultWords";
-  resultWords.innerText = words;
-
-  resultTableBodyRow.append(resultNumber, resultSn, resultWords); // Append all 2 cells to the table row
+const appendResult = (col1, col2, col3) => {
+    const resultTable = document.querySelector(".resultTable");
+    let resultTableBodyRow = document.createElement("tr"); // Create the current table row
+    resultTableBodyRow.className = "resultTableBodyRow";
+    if (col1) {
+        let resultCol1 = document.createElement("td");
+        resultCol1.className = "resultCol1";
+        resultCol1.innerText = col1;
+        resultTableBodyRow.append(resultCol1);
+        if (col2) {
+            let resultCol2 = document.createElement("td");
+            resultCol2.className = "resultCol2";
+            resultCol2.innerHTML = col2;
+            resultTableBodyRow.append(resultCol2);
+            if (col3) {
+                let resultCol3 = document.createElement("td");
+                resultCol3.className = "resultCol3";
+                resultCol3.innerText = col3;
+                resultTableBodyRow.append(resultCol3);
+            }
+        }
+    
+    }
   resultTable.append(resultTableBodyRow); // Append the current row to the scoreboard table body
 };
 
 // this function is called when the user clicks the button
-const convertToWords = () => {
+const runNumberFactory = () => {
   // Get what the user typed in the user input, note that when we created the box in the
   // html above we assigned it an id of "userInput" so we can identify it here
   const userInput = document.getElementById("userInput").value;
-  const addNumbers = document.getElementById("addNumbers").value;
 
   // remove all children from the resultdiv if any
   while (resultDiv.firstChild) resultDiv.removeChild(resultDiv.firstChild);
@@ -78,26 +85,28 @@ const convertToWords = () => {
   const o = new NumberFactory(userInput);
 
   // Here we just get three methods defined in the object
-  appendResult(o.formatedNumber, o.scientificNotation, o.words);
+  appendResult('inputString', o.inputString);
+  appendResult('isNegative',o.isNegative);
+  appendResult('rawString', o.rawString);
+  appendResult('lang',o.lang);
+  appendResult('seperator.group',o.seperator.group);
+  appendResult('seperator.decimal',o.seperator.decimal);
+  appendResult('integerString',o.integerString);
+  appendResult('decimalString',o.decimalString);
+  appendResult('integerPrecision',o.integerPrecision);
+  appendResult('scale',o.scale);
+  appendResult('precision',o.precision);
+  appendResult('integerWords',o.integerWords);
+  appendResult('decimalWords',o.decimalWords);
+  appendResult('formatedNumber',o.formatedNumber);
+  appendResult('scientificNotation',o.scientificNotation);
+  appendResult('words',o.words);
+  appendResult('conjunction',o.conjunction);
+  appendResult('negativePrefix',o.negativePrefix);
+  appendResult('decimalPrefix',o.decimalPrefix);
+  appendResult('wordList',o.wordList);
 
-  if (addNumbers > 0) {
-    appendResult("", "");
+}
 
-    let scale = Math.max(userInput, addNumbers);
-    let addCount = addNumbers;
-    if (parseFloat(userInput) <= parseFloat(addNumbers)) {
-      addCount = userInput - 1;
-    }
-    let skipCount = parseFloat(userInput) / parseFloat(addNumbers);
-    let last_number = userInput;
 
-    for (let x = 0; x < addCount; x++) {
-      console.log(addNumbers);
-      let this_number = Math.floor(userInput - (x + 1) * skipCount);
-      appendResult(numberWithCommas(this_number), numberToWords(this_number));
-    }
-
-  }
-};
-
-convertBtn.addEventListener("click", convertToWords);
+convertBtn.addEventListener("click", runNumberFactory);

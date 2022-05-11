@@ -13,9 +13,10 @@ export class NumberFactory {
   #mils_index = 29 ; // all the powers of 1000 start here keep adding to your hearts delight
   #conjunction     = 'and'      ;
   #negative_prefix = 'negative' ;
+  #decimal_prefix  = 'dot';
 
   constructor(number_string) {
-    this.InputString = number_string;
+    this.inputString = number_string;
 
   }
 
@@ -40,6 +41,30 @@ export class NumberFactory {
     this.#lang = lang;
   }
 
+  get decimalPrefix() {
+    return this.#decimal_prefix;
+  }
+
+  set decimalPrefix(decimal_prefix) {
+    this.#decimal_prefix = decimal_prefix;
+  }
+
+  get negativePrefix() {
+    return this.#negative_prefix;
+  }
+
+  set negativePrefix(negative_prefix) {
+    this.#negative_prefix = negative_prefix;
+  }
+
+  get conjunction() {
+    return this.#conjunction;
+  }
+
+  set conjunction(conjunction) {
+    this.#conjunction = conjunction;
+  }
+
   get seperator () {
     // Depending on the lang of the user, the seperators used for numbers
     const numberWithGroupAndDecimalSeparator = 1000.1;
@@ -51,10 +76,14 @@ export class NumberFactory {
     };
   }
 
+  get isNegative() {
+    return /^[-:space:]+/.test(this.inputString);
+  }
+
   get rawString() {
     // The input string cleaned up removing any group seperators like commas in en-US
     const re = new RegExp( '\\' + this.seperator.group, 'g' ); 
-    return this.InputString.replace(re, '');
+    return this.inputString.replace(/^[-:space:]+/,'').replace(re,'');
   }
 
   get integerString() {
@@ -134,11 +163,11 @@ export class NumberFactory {
   get decimalWords () {
     let i  = this.decimalString;
     if (parseFloat(i) != 0) {
-      let o = 'point';
+      let o = '';
       for ( let x = 0; x < i.length; x++ ) {
         o = [ o, this.wordList[this.#ones_index + parseInt(i.charAt(x))] ].join(' ');
       }
-      return o;
+      return o.trim();
     } else {
       return '';
     }
@@ -261,11 +290,17 @@ export class NumberFactory {
   }
 
   get words() {
+    let result = '';
+    if (this.isNegative) {
+      result = [result, this.#negative_prefix].join(' ').trim();
+    }
+    if (this.integerWords) {
+      result = [result, this.integerWords].join(' ').trim();
+    }
     if (this.decimalString) {
-      return [ this.integerWords, this.decimalWords ].join(' ').trim();
+      return [result, this.#decimal_prefix, this.decimalWords ].join(' ').trim();
     } 
-    return this.integerWords.trim();
-    
+    return result;
   }
 
   get formatedNumber() {
@@ -293,7 +328,7 @@ export class NumberFactory {
 // let tool06 = new NumberFactory('642.09');
 // let tool07 = new NumberFactory('642.09');
 // let tool02 = new NumberFactory('56654646886642.09000');
-// let tool08 = new NumberFactory('1,000,000.0000000');
+let tool02 = new NumberFactory('676,38.353');
 
 
 
