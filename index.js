@@ -105,6 +105,7 @@ const runNumberFactory = () => {
   appendResult('negativePrefix',o.negativePrefix);
   appendResult('decimalPrefix',o.decimalPrefix);
   appendResult('wordList',o.wordList);
+  appendResult('Evenor0dd',o.EvenorOdd);
 
 }
 

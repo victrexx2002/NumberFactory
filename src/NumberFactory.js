@@ -317,6 +317,17 @@ export class NumberFactory {
     return coefficient.toString() + ' × 10<sup>' + exponent + '</sup>';
   }
 
+  get EvenorOdd() {
+    const yes = 'yes';
+    const no = 'no';
+    if (i%2===0){
+      return yes;
+    }
+    else {
+      return no;
+    }
+  }
+
 }
 
 
