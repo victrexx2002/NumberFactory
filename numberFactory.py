@@ -1,4 +1,5 @@
 import sys
+from unicodedata import decimal
 
 def main():
     if len(sys.argv) < 2:
@@ -19,6 +20,10 @@ def main():
     tens_index = 20  # 2 letter number prefixes start here
     huns_index = 28  # the word hundred, kind of an odd man out
     mils_index = 29 # all the powers of 1000 start here keep adding to your hearts delight
+
+
+    
+
 
     def fractions(number):
         if float(number) == 0 :
@@ -95,13 +100,31 @@ def main():
                 return ' '.join([ result, ' and ', underThousands(right_string)])
       
         return result
-    
 
-    if len(str(number_input)) < 4 :
-        return underThousands(number_input)
+    def thousands_check(number_input) :
+        if len(str(number_input)) < 4 :
+            return underThousands(number_input)
+        else :
+            return overThousands(number_input) 
+    
+    
+    number_string = str(number_input)
+    position_of_point = number_string.find(decimal_separator)
+    integer_part = number_string[0 : position_of_point]
+    decimal_part = number_string[position_of_point + 1 :]
+    if decimal_separator in number_string :
+        return thousands_check(integer_part) + ' ' + fractions(decimal_part)
     else :
-        
-        return overThousands(number_input) 
+        return thousands_check(integer_part)        
+     
+    
+    
+    
+    
+    
+    
+    
+    
 
         
             
